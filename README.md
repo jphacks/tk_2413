@@ -1,6 +1,6 @@
 # フジヱ
 
-![IMAGE ALT TEXT HERE](public/images/fujiwe.png)
+![フジヱ](public/images/fujiwe.png)
 
 ## 製品概要
 ### 背景(製品開発のきっかけ、課題等）
@@ -26,6 +26,7 @@
 **メール作成支援Webアプリ「フジヱ」**
 を作った。
 
+参考：事務員さんへのインタビューによる成果はチームのMiroにまとめられている (https://miro.com/app/board/uXjVLOhn9QY=/)
 
 ### 製品説明（具体的な製品の説明）
 #### フジヱ：https://jphacks.github.io/tk_2413/
