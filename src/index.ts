@@ -168,7 +168,8 @@ function main() {
   const in3Element = mustGetElementById("in3");
   const courseIdElement = mustGetElementById("course-id");
   const verifyElement = mustGetElementById("verify");
-  const outElement = mustGetElementById("out");
+  const out1Element = mustGetElementById("out1");
+  const out2Element = mustGetElementById("out2");
 
   assert(
     in1Element instanceof HTMLTextAreaElement &&
@@ -176,7 +177,8 @@ function main() {
       in3Element instanceof HTMLTextAreaElement &&
       courseIdElement instanceof HTMLInputElement &&
       verifyElement instanceof HTMLButtonElement &&
-      outElement instanceof HTMLPreElement,
+      out1Element instanceof HTMLDivElement &&
+      out2Element instanceof HTMLDivElement,
   );
 
   verifyElement.addEventListener("click", () => {
@@ -187,24 +189,17 @@ function main() {
     assert(in1 !== undefined && in2 !== undefined && in3 !== undefined);
 
     const result = verify(in1, in2, in3, courseId as CourseId);
-    outElement.innerHTML = `この授業を取らなくていいのに取っている学生:
-${result.superfluousStudents
-  .map((s) => `${s.id} ${displayMaybeStudentContact(s.contact)}`)
-  .join("\n")}
 
-この授業を取らないといけないのに取っていない学生:
-${result.missingStudents
-  .map((s) => {
-    let reason: string;
-    if (s.wrongCourseId === undefined) {
-      reason = "履修登録なし";
-    } else {
-      reason = `${s.wrongCourseId}を誤登録`;
-    }
-    return `${s.id} 理由: ${reason} ${displayMaybeStudentContact(s.contact)}`;
-  })
-  .join("\n")}
-`;
+    out1Element.innerHTML = `<div>この授業を取らなくていいのに取っている学生:</div>
+      ${result.superfluousStudents
+      .map((s) => `<div class="linkbox">${s.id} ${displayMaybeStudentContact(s.contact)}
+      </div>`).join("\n")}`;
+
+    out2Element.innerHTML = `<div>この授業を取らないといけないのに取っていない学生:</div>
+      ${result.missingStudents
+      .map((s) => `<div>${s.id} 理由: ${s.wrongCourseId === undefined ? "履修登録なし" :
+      `${s.wrongCourseId}を誤登録`} ${displayMaybeStudentContact(s.contact)}</div>`)
+      .join("\n")}`;
   });
 }
 
